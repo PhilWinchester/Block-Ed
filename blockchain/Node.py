@@ -1,11 +1,10 @@
 class Node:
     def __init__(self):
-        self.leftChild = True       # pointer to left child node
-        self.rightChild = "hi"      # pointer to right child node
-        self.parentNode = 2      # pointer to parent node
-        self.siblingNode = {'None':False}     # pointer to sibling node
-        self.side = [1,2,3,4,5]            # whether this node is left or right
+        self.leftChild = None       # pointer to left child node
+        self.rightChild = None      # pointer to right child node
+        self.parentNode = None      # pointer to parent node
+        self.siblingNode = None     # pointer to sibling node
+        self.side = None            # whether this node is left or right
 
-    def printNode(self):
-        print "in printNode"
-        return self.temp
+    def print_node(self):
+        print "Left Child %s, Right Child %s, Parent Node %s, Sibling %s, Side %s" % (self.leftChild, self.rightChild, self.parentNode, self.siblingNode, self.side)

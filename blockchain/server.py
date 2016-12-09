@@ -6,7 +6,7 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 CORS(app)
 
-handler = Handler()
+Elections = []
 
 @app.route('/', methods=['GET','POST'])
 def hello_world():
@@ -20,13 +20,24 @@ def hello_world():
             print req_json
         else:
             print "no json ;("
-        return jsonify(success=True)
+        return jsonify(response=200)
 
-@app.route('/test', methods=['GET'])
-def test_gen():
-    print handler.new_election('test', ['a','b','c'])
-    return 'a ok', 200
+@app.route('/new_election', methods=['GET', 'POST'])
+def new_election():
+    if request.method == 'GET':
+        return jsonify(Elections)
+    elif request.method == 'POST':
+        if request.get_json:
+            election_data = stripUnicode(request.get_json())
+        else:
+            return jsonify(bad_data=400)
+        el_handler = Handler(election_data.name, election_data.id)
+        Elections.append(el_handler)
+        return jsonify(Elections)
 
+@app.route('/vote', methods=['POST'])
+def vote():
+    return jsonify(request.get_json())
 
 def stripUnicode(json):
     new_dict = {}

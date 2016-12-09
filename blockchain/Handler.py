@@ -1,7 +1,9 @@
 from Merkle import *
 
 class Handler:
-    def __init__(self):
+    def __init__(self, name, el_id):
+        self.name = name
+        self.id = el_id
         self.temp = False
         self.merkle = Merkle()
 
