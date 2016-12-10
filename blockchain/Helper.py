@@ -19,5 +19,4 @@ class Helper():
             temp_data['id'] = elections[i].id
             temp_data['options'] = elections[i].options
             return_data[i] = temp_data
-        print return_data
         return return_data
