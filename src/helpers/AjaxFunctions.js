@@ -3,8 +3,6 @@ function mapElections(eData) {
     .map((eId) => (
       eData[eId]
     ))
-  console.log('converted:', elections);
-  console.log('raw', eData);
   return elections
 }
 

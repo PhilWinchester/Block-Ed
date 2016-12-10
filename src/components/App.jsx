@@ -18,7 +18,7 @@ export default class App extends Component {
       election: {
         name: '',
         id: 0,
-        options: ['a','b']
+        options: ['yes','no']
       },
       elections: [],
       vote: ''
@@ -28,7 +28,6 @@ export default class App extends Component {
   componentDidMount() {
     AjaxFunctions.pyGetElect()
       .then(e_data => {
-        console.log('mount', e_data)
         this.setState({
           elections: e_data
         })
