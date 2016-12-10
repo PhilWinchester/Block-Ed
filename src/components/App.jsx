@@ -15,7 +15,25 @@ export default class App extends Component {
         username: '',
         password: '',
       },
+      election: {
+        name: '',
+        id: 0,
+        options: ['a','b']
+      },
+      elections: [],
+      vote: ''
     }
+  }
+
+  componentDidMount() {
+    AjaxFunctions.pyGetElect()
+      .then(e_data => {
+        console.log(e_data)
+        this.setState({
+          elections: e_data
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   handleUsernameUpdate(e, str){
@@ -54,6 +72,22 @@ export default class App extends Component {
     }
   }
 
+  handleElectionUpdate(e) {
+    this.setState({
+      election: {
+        name: e.target.value,
+        id: this.state.elections.length + 1,
+        options: ['a','b']
+      }
+    })
+  }
+
+  handleVoteUpdate(e) {
+    this.setState({
+      vote: e.target.value
+    })
+  }
+
   handleLogin(){
     let username = this.state.login.username;
     let password = this.state.login.password;
@@ -74,14 +108,14 @@ export default class App extends Component {
       .catch(err => console.log(err))
   }
 
-  getPython() {
-    AjaxFunctions.pyGet()
+  voteFetch() {
+    AjaxFunctions.pyVote(this.state.vote)
       .then(r => console.log(r))
       .catch(err => console.log(err))
   }
 
-  postPython() {
-    AjaxFunctions.pyPost()
+  electFetch() {
+    AjaxFunctions.pyPostElect(this.state.election)
       .then(r => console.log(r))
       .catch(err => console.log(err))
   }
@@ -102,11 +136,11 @@ export default class App extends Component {
             placeholder="password"
             onChange={(e) => this.handlePasswordUpdate(e, 'log')}
           />
-          <button onClick={() => this.handleLogin()}>Submit</button>
+          <button onClick={() => this.handleLogin()}>Login</button>
 
         </div>
         <div className="signup">
-          Sign Up
+          Sign up
           <input
             type="search"
             placeholder="username"
@@ -117,11 +151,34 @@ export default class App extends Component {
             placeholder="password"
             onChange={(e) => this.handlePasswordUpdate(e, 'sign')}
           />
-          <button onClick={() => this.handleSignup()}>Submit</button>
+          <button onClick={() => this.handleSignup()}>Signup</button>
 
         </div>
-        <button onClick={() => this.getPython()}>Get Python</button>
-        <button onClick={() => this.postPython()}>Post Python</button>
+        <hr/>
+        <div className="election">
+          <label>
+            New Election
+            <br/>
+            <input
+              type="search"
+              placeholder="name"
+              onChange={(e) => this.handleElectionUpdate(e)}
+            />
+          </label>
+        </div>
+        <div className="vote">
+          <label>
+            New Vote
+            <br/>
+            <input
+              type="search"
+              placeholder="name"
+              onChange={(e) => this.handleVoteUpdate(e)}
+            />
+          </label>
+        </div>
+        <button onClick={() => this.voteFetch()}>Vote</button>
+        <button onClick={() => this.electFetch()}>Create Election</button>
       </div>
     );
   }

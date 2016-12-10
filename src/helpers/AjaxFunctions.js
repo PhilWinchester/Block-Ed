@@ -1,3 +1,13 @@
+function mapElections(eData) {
+  const elections = Object.keys(eData)
+    .map((eId) => (
+      eData[eId]
+    ))
+  console.log(elections);
+  console.log(eData);
+  return elections
+}
+
 export default class AjaxFunctions {
   static login(username,password) {
     return fetch('/user/login', {
@@ -27,28 +37,38 @@ export default class AjaxFunctions {
     .then(r => r.json())
   }
 
-  static pyGet() {
-    return fetch('http://localhost:5000', {
-      method: 'GET',
-      mode: 'cors',
-      dataType: 'json'
-    })
-    .then(r => r.json())
-  }
-
-  static pyPost() {
-    return fetch('http://localhost:5000', {
+  static pyVote(vote) {
+    return fetch('http://localhost:5000/vote', {
       headers: {
         'Content-Type':'application/json'
       },
       method: 'POST',
       mode: 'cors',
-      body: JSON.stringify({
-        post:12,
-        cors:"hi",
-        json:true
-      })
+      body: JSON.stringify(vote)
     })
     .then(r => r.json())
+  }
+
+  static pyGetElect() {
+    return fetch('http://localhost:5000/elections', {
+      method: 'GET',
+      mode: 'cors',
+      dataType:'json'
+    })
+    .then(r => r.json())
+    .then(eData => mapElections(eData))
+  }
+
+  static pyPostElect(elect) {
+    return fetch('http://localhost:5000/elections', {
+      headers: {
+        'Content-Type':'application/json'
+      },
+      method: 'POST',
+      mode: 'cors',
+      body: JSON.stringify(elect)
+    })
+    .then(r => r.json())
+    .then(eData => mapElections(eData))
   }
 }

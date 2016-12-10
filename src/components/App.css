@@ -1,64 +1,23 @@
-* {
-  margin: 0;
-  padding: 0;
+body{
+  font-size: 36px;
 }
-.ctx {
-  width: 6000px;
-  height: 400px;
+hr{
+  border-width: 10px;
+  border-style: outset;
+  border-color: firebrick;
 }
-header {
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  background: linear-gradient(to bottom, #464242 , #212121  );
-
+h1 {
+  margin: 0 10px;
 }
-.userLogin {
-  position: fixed;
-  top:0;
-  right: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
+.signup {
+  margin: 0 0 10px 10px;
 }
-.rangeThick {
-  margin-top: 50px;
-  margin-right: 10px;
+.login {
+  margin: 0 0 10px 10px;
 }
-main {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-   background: #ECECEC
+.election{
+  margin: 10px 0 10px 10px;
 }
-.gal {
-  overflow-y: auto;
-  height: 70vh;
-  margin-left: 40px;
-}
-.picture {
-  margin-top: 95px;
-}
-.stylings {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.dontHitBottom {
-  margin-bottom: 40px
-}
-.notify{
-  position: fixed;
-  top: 80px;
-  font-size: 20px;
-}
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100vw;
-  height: 40px;
-  background: linear-gradient(to bottom, #464242 , #212121  );
+.vote{
+  margin: 10px 0 10px 10px;
 }
