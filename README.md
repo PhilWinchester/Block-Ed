@@ -4,30 +4,38 @@ Simple blockchain implementation to demonstrate the strengths of the blockchain.
 
 ```
 .
-├── LICENSE
 ├── PostgresUpdate.md
 ├── README.md
+│
 ├── blockchain
 │   ├── Handler.py
 │   ├── Helper.py
 │   ├── Merkle.py
 │   ├── Node.py
-│   └── server.py
+│   └── server.py *Flask Server*
+│
 ├── db
 │   └── schema.sql
+│
 ├── lib
 │   └── keyGenerate.js
+│
 ├── models
 │   ├── dbConnect.js
 │   └── user.js
+│
 ├── package.json
+│
 ├── routes
 │   ├── index.js
 │   └── user.js
+│
 ├── scripts
 │   ├── deployment_cleanup.sh
 │   └── deployment_react.sh
-├── server.js
+│
+├── server.js *Express Server*
+│
 ├── src
 │   ├── components
 │   │   ├── App.css
@@ -35,5 +43,6 @@ Simple blockchain implementation to demonstrate the strengths of the blockchain.
 │   ├── helpers
 │   │   └── AjaxFunctions.js
 │   └── index.js
+│
 └── webpack.config.js
 ```
