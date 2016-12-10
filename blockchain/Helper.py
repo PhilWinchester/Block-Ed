@@ -13,8 +13,11 @@ class Helper():
 
     def convert_elections(self, elections):
         return_data = {}
-        for e in elections:
-            return_data['name'] = e.name
-            return_data['id'] = e.id
-            return_data['options'] = e.options
+        for i in range(len(elections)):
+            temp_data = {}
+            temp_data['name'] = elections[i].name
+            temp_data['id'] = elections[i].id
+            temp_data['options'] = elections[i].options
+            return_data[i] = temp_data
+        print return_data
         return return_data

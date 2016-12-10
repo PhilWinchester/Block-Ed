@@ -31,13 +31,14 @@ def hello_world():
 @app.route('/elections', methods=['GET', 'POST'])
 def elections():
     if request.method == 'GET':
+        print len(Elections)
         return jsonify(helper.convert_elections(Elections))
     elif request.method == 'POST':
         if request.get_json:
             election_data = helper.strip_unicode(request.get_json())
         else:
             return jsonify({'error':"bad data",'response':400})
-        print election_data
+        print 'elections post', election_data
         el_handler = Handler(election_data['name'], election_data['id'], election_data['options'])
         Elections.append(el_handler)
         return jsonify(helper.convert_elections(Elections)) # need to get data out of this and create json to send back

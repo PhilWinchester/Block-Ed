@@ -28,7 +28,7 @@ export default class App extends Component {
   componentDidMount() {
     AjaxFunctions.pyGetElect()
       .then(e_data => {
-        console.log(e_data)
+        console.log('mount', e_data)
         this.setState({
           elections: e_data
         })
@@ -116,7 +116,12 @@ export default class App extends Component {
 
   electFetch() {
     AjaxFunctions.pyPostElect(this.state.election)
-      .then(r => console.log(r))
+      .then(r => {
+        console.log('post', r)
+        this.setState({
+          elections: r
+        })
+      })
       .catch(err => console.log(err))
   }
 
