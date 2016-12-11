@@ -8,7 +8,7 @@ class Merkle:
         self.leaves=[]
 
     def add_leaf(self, leaf):
-        leaf = Node(leaf)
+        node = Node(leaf)
         self.leaves.append(node)
         print self.__length()
 
@@ -16,6 +16,15 @@ class Merkle:
             return "full"
         else:
             return "growing"
+
+    def get_values(self):
+        output_str = ''
+        for l in self.leaves:
+            output_str += str(l.value)
+        return output_str
+
+    def build(self):
+        return "building"
 
     # playing with python private functions
     def __length(self):

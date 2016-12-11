@@ -21,7 +21,11 @@ export default class App extends Component {
         options: ['yes','no']
       },
       elections: [],
-      vote: ''
+      vote: {
+        election: 0,
+        options: 1,
+        user_pub_key: 'thisistherepublickey'
+      }
     }
   }
 
@@ -78,12 +82,6 @@ export default class App extends Component {
         id: this.state.elections.length + 1,
         options: ['a','b']
       }
-    })
-  }
-
-  handleVoteUpdate(e) {
-    this.setState({
-      vote: e.target.value
     })
   }
 
@@ -167,17 +165,6 @@ export default class App extends Component {
               type="search"
               placeholder="name"
               onChange={(e) => this.handleElectionUpdate(e)}
-            />
-          </label>
-        </div>
-        <div className="vote">
-          <label>
-            New Vote
-            <br/>
-            <input
-              type="search"
-              placeholder="name"
-              onChange={(e) => this.handleVoteUpdate(e)}
             />
           </label>
         </div>
