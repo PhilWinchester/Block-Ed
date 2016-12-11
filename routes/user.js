@@ -8,7 +8,7 @@ const sendJSONResp = (req,res) => res.json({login:true})
 user.route('/login')
   // .get(sendJSONResp)
   .post(db.findByUsername, (req,res) => {
-    if (bcrypt.compareSync(res.user.password, req.body.password)) {
+    if (bcrypt.compare(res.user.password, req.body.password)) {
       res.json(res.user);
     } else {
       res.json({password:false})

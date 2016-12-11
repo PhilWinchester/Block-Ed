@@ -35,7 +35,7 @@ def vote():
     vote_dict = helper.strip_unicode(request.get_json())
     # create Vote item for vote dictionary purely b/c I find it easier to work with objects that I can manipulate how I like
     # might remove this if it isn't repeated too much
-    vote = Vote(vote_dict.get('election'), vote_dict.get('options'))
+    vote = Vote(vote_dict.get('election'), vote_dict.get('options'), vote_dict.get('userPublicKey'))
     election = Elections[vote.id]
     # print 'vote request:', vote, election.name
     election.vote(vote)

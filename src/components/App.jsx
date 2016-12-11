@@ -15,6 +15,12 @@ export default class App extends Component {
         username: '',
         password: '',
       },
+      user: {
+        username: '',
+        password: '',
+        privateKey: '',
+        publicKey: ''
+      },
       election: {
         name: '',
         id: 0,
@@ -24,7 +30,7 @@ export default class App extends Component {
       vote: {
         election: 0,
         options: 1,
-        user_pub_key: 'thisistherepublickey'
+        user_signature: 'thisisasignedmessage'
       }
     }
   }
@@ -91,7 +97,19 @@ export default class App extends Component {
     console.log(username,password);
 
     AjaxFunctions.login(username,password)
-      .then((r) => console.log(r))
+      .then((r) => {
+        console.log(r)
+        if (r.password !== 'false') {
+          this.setState({
+            user: {
+              username: r.username,
+              password: r.password,
+              privateKey: r.private_key,
+              publicKey: r.public_key
+            }
+          })
+        }
+      })
       .catch(err => console.log(err))
   }
 
@@ -106,7 +124,13 @@ export default class App extends Component {
   }
 
   voteFetch() {
-    AjaxFunctions.pyVote(this.state.vote)
+    let vote = {
+      election: this.state.vote.election,
+      options: this.state.vote.options,
+      userPublicKey: this.state.user.publicKey
+    }
+
+    AjaxFunctions.pyVote(vote)
       .then(r => console.log(r))
       .catch(err => console.log(err))
   }

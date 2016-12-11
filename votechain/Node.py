@@ -19,11 +19,11 @@ class Node:
 
     def generate_hash_str(self, vote_obj):
         vote_str = str(vote_obj.id) + str(vote_obj.choice)
-        print vote_str
-        random_hex_str = ''.join(random.choice(string.hexdigits) for i in range(100))
-        print random_hex_str
-        user_pub_key = 'this will happen soon'
-        print user_pub_key
+        # print 'vote stringified', vote_str
+        random_hex_str = ''.join(random.choice(string.hexdigits) for i in range(10))
+        # print 'random hex', random_hex_str
+        user_pub_key = vote_obj.public_key
+        # print 'user public', user_pub_key
         output_str = hash_function(vote_str + random_hex_str + user_pub_key).hexdigest()
-        print output_str
+        # print 'full output', output_str
         return output_str
