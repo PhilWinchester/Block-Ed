@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import AjaxFunctions from '../../helpers/AjaxFunctions'
+import { browserHistory } from 'react-router';
 import './Login.css';
 
-export default class App extends Component {
+export default class Login extends Component {
   constructor(){
     super();
 
@@ -38,21 +39,12 @@ export default class App extends Component {
     console.log(username,password);
 
     AjaxFunctions.login(username,password)
-      .then((r) => {
-        console.log(r)
-        console.log(this.props.appState)
-        if (r.password !== 'false') {
-          // this.setState({
-          //   user: {
-          //     username: r.username,
-          //     password: r.password,
-          //     privateKey: r.private_key,
-          //     publicKey: r.public_key
-          //   }
-          // })
+      .then((user) => {
+        if (user.password !== 'false') {
           // fire props function to change user state
-          this.props.updateUserState(r)
-          console.log('logged in');
+          this.props.updateUserState(user)
+        } else {
+          console.log(user);
         }
       })
       .catch(err => console.log(err))
@@ -62,7 +54,7 @@ export default class App extends Component {
     return (
       <div>
         <div className="login">
-          Log in
+          <h4>Log in</h4>
           <input
             type="search"
             placeholder="username"
@@ -74,9 +66,7 @@ export default class App extends Component {
             onChange={(e) => this.handlePasswordUpdate(e, 'log')}
           />
           <button onClick={() => this.handleLogin()}>Login</button>
-
         </div>
-
       </div>
     );
   }

@@ -19,7 +19,7 @@ module.exports = {
         username = $/username/;
       `, req.body)
       .then(user => {
-        console.log('models user', user);
+        // console.log('models user', user);
         res.user = user;
         next();
       })

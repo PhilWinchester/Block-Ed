@@ -2,67 +2,85 @@ import React, { Component } from 'react';
 import AjaxFunctions from '../../helpers/AjaxFunctions'
 import './Profile.css';
 
-export default class App extends Component {
-  // constructor(){
-  //   super();
-  //
-  //   this.state={
-  //     login: {
-  //       username: '',
-  //       password: ''
-  //     }
-  //   }
-  // }
-  //
-  // handleUsernameUpdate(e, str){
-  //   this.setState({
-  //     login: {
-  //       username: e.target.value,
-  //       password: this.state.login.password
-  //     }
-  //   })
-  // }
-  //
-  // handlePasswordUpdate(e, str){
-  //   this.setState({
-  //     login: {
-  //       username: this.state.login.username,
-  //       password: e.target.value
-  //     }
-  //   })
-  // }
-  //
-  // handleLogin(){
-  //   let username = this.state.login.username;
-  //   let password = this.state.login.password;
-  //   console.log(username,password);
-  //
-  //   AjaxFunctions.login(username,password)
-  //     .then((r) => {
-  //       console.log(r)
-  //       console.log(this.props.appState)
-  //       if (r.password !== 'false') {
-  //         // this.setState({
-  //         //   user: {
-  //         //     username: r.username,
-  //         //     password: r.password,
-  //         //     privateKey: r.private_key,
-  //         //     publicKey: r.public_key
-  //         //   }
-  //         // })
-  //         // fire props function to change user state
-  //         this.props.updateUserState(r)
-  //         console.log('logged in');
-  //       }
-  //     })
-  //     .catch(err => console.log(err))
-  // }
+export default class Profile extends Component {
+  constructor(){
+    super();
+
+    this.state={
+      election: {
+        name: '',
+        id: 0,
+        options: ['yes','no']
+      },
+      elections: [],
+      vote: {
+        election: 0,
+        options: 1,
+        user_signature: 'thisisasignedmessage'
+      }
+    }
+  }
+
+  componentDidMount() {
+    AjaxFunctions.pyGetElect()
+      .then(e_data => {
+        this.setState({
+          elections: e_data
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+  handleElectionUpdate(e) {
+    this.setState({
+      election: {
+        name: e.target.value,
+        id: this.state.elections.length + 1,
+        options: ['a','b']
+      }
+    })
+  }
+
+  voteFetch() {
+    let vote = {
+      election: this.state.vote.election,
+      options: this.state.vote.options,
+      userPublicKey: this.state.user.publicKey
+    }
+
+    AjaxFunctions.pyVote(vote)
+      .then(r => console.log(r))
+      .catch(err => console.log(err))
+  }
+
+  electFetch() {
+    AjaxFunctions.pyPostElect(this.state.election)
+      .then(r => {
+        console.log('post', r)
+        this.setState({
+          elections: r
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
 
   render() {
     return (
       <div>
-        <h1>PROFILE</h1>
-
+        <h4>Welcome, {this.props.appState.user.username}</h4>
+        <hr/>
+        <div className="election">
+          <h4>New Election</h4>
+          <br/>
+          <input
+            type="search"
+            placeholder="name"
+            onChange={(e) => this.handleElectionUpdate(e)}
+          />
+        </div>
+        <button onClick={() => this.voteFetch()}>Vote</button>
+        <button onClick={() => this.electFetch()}>Create Election</button>
       </div>
     );
   }

@@ -11,7 +11,7 @@ ReactDOM.render((
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Login}/>
-        <Route path="/login" component={Profile}/>
+        <Route path="/profile" component={Profile} />
       </Route>
     </Router>
   ), document.querySelector('#root-container'));
