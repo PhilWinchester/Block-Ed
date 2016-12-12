@@ -1,12 +1,14 @@
-function mapElections(eData) {
-  const elections = Object.keys(eData)
+
+export default class AjaxFunctions {
+  static mapElections(eData) {
+    const elections = Object.keys(eData)
     .map((eId) => (
       eData[eId]
     ))
-  return elections
-}
+    console.log('in mapElections', elections);
+    return elections
+  }
 
-export default class AjaxFunctions {
   static login(username,password) {
     return fetch('/user/login', {
       headers: {
@@ -54,8 +56,8 @@ export default class AjaxFunctions {
       mode: 'cors',
       dataType:'json'
     })
-    .then(r => r.json())
-    .then(eData => mapElections(eData))
+    .then(r => r.json());
+    // .then(eData => mapElections(eData))
   }
 
   static pyPostElect(elect) {
@@ -69,6 +71,6 @@ export default class AjaxFunctions {
       body: JSON.stringify(elect)
     })
     .then(r => r.json())
-    .then(eData => mapElections(eData))
+    // .then(eData => mapElections(eData))
   }
 }

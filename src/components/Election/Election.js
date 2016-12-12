@@ -13,24 +13,41 @@ export default class Election extends Component {
         options: 1,
         user_signature: 'thisisasignedmessage'
       }
+      // elections: [
+      //   {
+      //     id: 4,
+      //     name: 'bunny',
+      //     options: [
+      //       0: 'a',
+      //       1: 'b'
+      //   ]}]
     }
   }
 
-  componentDidMount() {
-    console.log(this.props.elections);
-  }
+  // componentDidMount() {
+  //   AjaxFunctions.pyGetElect()
+  //     .then(e_data => {
+  //       this.setState({
+  //         elections: AjaxFunctions.mapElections(e_data)
+  //       })
+  //       console.log('Profile state:', this.state.elections);
+  //     })
+  //     .catch(err => console.log(err))
+  // }
 
   render() {
-    const elections = this.props.elections.map((eId, ind) => (
+    console.log('*****PROPS: ', this.props);
+    const elections = this.props.elections.map((election, ind) => (
       <ElectionItem
         key={ind}
-        name={this.props.elections[eId].name}
-        id={this.props.elections[eId].id}
+        name={election.name}
+        id={election.id}
       />
-    ))
+    ));
     return (
       <div className="election-card">
         <h4>Elections</h4>
+        {elections}
       </div>
     );
   }

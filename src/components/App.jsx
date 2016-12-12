@@ -17,6 +17,17 @@ export default class App extends Component {
     }
   }
 
+  componentDidMount(){
+    fetch('http://localhost:5000/hello', {
+      method: 'GET',
+      mode: 'cors',
+      dataType:'json'
+    })
+    .then(r => r.json())
+    .then(resp => console.log(resp))
+    .catch(err => console.log(err))
+  }
+
   updateUserState(user) {
     this.setState({
       user: {

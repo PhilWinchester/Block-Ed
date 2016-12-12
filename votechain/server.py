@@ -15,9 +15,15 @@ helper = Helper()
 # much scalability!!! such safe!!!!!
 Elections = []
 
+@app.route('/hello', methods=['GET'])
+def hello_world():
+    print 'pinged by React'
+    return jsonify(hello='world')
+
 @app.route('/elections', methods=['GET', 'POST'])
 def elections():
     if request.method == 'GET':
+        print 'returning %s Elections' % (len(Elections))
         return jsonify(helper.convert_elections(Elections))
     elif request.method == 'POST':
         if request.get_json:

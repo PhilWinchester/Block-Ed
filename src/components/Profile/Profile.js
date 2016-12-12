@@ -7,7 +7,7 @@ export default class Profile extends Component {
   constructor(){
     super();
 
-    this.state={
+    this.state = {
       election: {
         name: '',
         id: 0,
@@ -23,12 +23,12 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.elections);
     AjaxFunctions.pyGetElect()
       .then(e_data => {
         this.setState({
-          elections: e_data
+          elections: AjaxFunctions.mapElections(e_data)
         })
+        console.log('Profile state:', this.state.elections);
       })
       .catch(err => console.log(err))
   }
@@ -57,15 +57,16 @@ export default class Profile extends Component {
 
   electFetch() {
     AjaxFunctions.pyPostElect(this.state.election)
-      .then(r => {
-        console.log('post', r)
+      .then(() => {
+        let elections = this.state.elections;
+        elections.push(this.state.election);
         this.setState({
-          elections: r
-        })
+          elections
+        });
+        console.log('Election Post', election)
       })
       .catch(err => console.log(err))
   }
-
 
   render() {
     return (
