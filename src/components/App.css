@@ -1,23 +1,6 @@
 body{
   font-size: 36px;
 }
-hr{
-  border-width: 10px;
-  border-style: outset;
-  border-color: firebrick;
-}
 h1 {
-  margin: 0 10px;
-}
-.signup {
-  margin: 0 0 10px 10px;
-}
-.login {
-  margin: 0 0 10px 10px;
-}
-.election{
-  margin: 10px 0 10px 10px;
-}
-.vote{
-  margin: 10px 0 10px 10px;
+  margin: 0 2px;
 }

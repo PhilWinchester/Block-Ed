@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import AjaxFunctions from '../../helpers/AjaxFunctions'
+import AjaxFunctions from '../../helpers/AjaxFunctions';
+import Election from '../Election/Election';
 import './Profile.css';
 
 export default class Profile extends Component {
@@ -22,6 +23,7 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
+    console.log(this.state.elections);
     AjaxFunctions.pyGetElect()
       .then(e_data => {
         this.setState({
@@ -45,7 +47,7 @@ export default class Profile extends Component {
     let vote = {
       election: this.state.vote.election,
       options: this.state.vote.options,
-      userPublicKey: this.state.user.publicKey
+      userPublicKey: this.props.appState.user.publicKey
     }
 
     AjaxFunctions.pyVote(vote)
@@ -71,12 +73,17 @@ export default class Profile extends Component {
         <h4>Welcome, {this.props.appState.user.username}</h4>
         <hr/>
         <div className="election">
-          <h4>New Election</h4>
-          <br/>
-          <input
-            type="search"
-            placeholder="name"
-            onChange={(e) => this.handleElectionUpdate(e)}
+          <div className="new-elections">
+            <h4>New Election</h4>
+            <br/>
+            <input
+              type="search"
+              placeholder="name"
+              onChange={(e) => this.handleElectionUpdate(e)}
+            />
+          </div>
+          <Election
+            elections={this.state.elections}
           />
         </div>
         <button onClick={() => this.voteFetch()}>Vote</button>
