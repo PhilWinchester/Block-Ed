@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AjaxFunctions from '../../helpers/AjaxFunctions'
-import './App.css';
+import './Login.css';
 
 export default class App extends Component {
   constructor(){
@@ -15,39 +15,21 @@ export default class App extends Component {
   }
 
   handleUsernameUpdate(e, str){
-    if (str === 'log') {
-      this.setState({
-        login: {
-          username: e.target.value,
-          password: this.state.login.password
-        }
-      })
-    } else {
-      this.setState({
-        signup: {
-          username: e.target.value,
-          password: this.state.signup.password
-        }
-      })
-    }
+    this.setState({
+      login: {
+        username: e.target.value,
+        password: this.state.login.password
+      }
+    })
   }
 
   handlePasswordUpdate(e, str){
-    if (str === 'log') {
-      this.setState({
-        login: {
-          username: this.state.login.username,
-          password: e.target.value
-        }
-      })
-    } else {
-      this.setState({
-        signup: {
-          username: this.state.signup.username,
-          password: e.target.value
-        }
-      })
-    }
+    this.setState({
+      login: {
+        username: this.state.login.username,
+        password: e.target.value
+      }
+    })
   }
 
   handleLogin(){
@@ -58,49 +40,20 @@ export default class App extends Component {
     AjaxFunctions.login(username,password)
       .then((r) => {
         console.log(r)
+        console.log(this.props.appState)
         if (r.password !== 'false') {
-          this.setState({
-            user: {
-              username: r.username,
-              password: r.password,
-              privateKey: r.private_key,
-              publicKey: r.public_key
-            }
-          })
+          // this.setState({
+          //   user: {
+          //     username: r.username,
+          //     password: r.password,
+          //     privateKey: r.private_key,
+          //     publicKey: r.public_key
+          //   }
+          // })
+          // fire props function to change user state
+          this.props.updateUserState(r)
+          console.log('logged in');
         }
-      })
-      .catch(err => console.log(err))
-  }
-
-  handleSignup(){
-    let username = this.state.signup.username;
-    let password = this.state.signup.password;
-    console.log(username,password);
-
-    AjaxFunctions.signup(username, password)
-      .then((r) => console.log(r))
-      .catch(err => console.log(err))
-  }
-
-  voteFetch() {
-    let vote = {
-      election: this.state.vote.election,
-      options: this.state.vote.options,
-      userPublicKey: this.state.user.publicKey
-    }
-
-    AjaxFunctions.pyVote(vote)
-      .then(r => console.log(r))
-      .catch(err => console.log(err))
-  }
-
-  electFetch() {
-    AjaxFunctions.pyPostElect(this.state.election)
-      .then(r => {
-        console.log('post', r)
-        this.setState({
-          elections: r
-        })
       })
       .catch(err => console.log(err))
   }
@@ -108,7 +61,6 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <h1>Login</h1>
         <div className="login">
           Log in
           <input
